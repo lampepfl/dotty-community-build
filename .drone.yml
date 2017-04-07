@@ -1,0 +1,7 @@
+pipeline:
+  test:
+    image: lampepfl/dotty:latest
+    pull: true
+    commands:
+      - cd dotty && sbt publishLocal
+      - sbt test
