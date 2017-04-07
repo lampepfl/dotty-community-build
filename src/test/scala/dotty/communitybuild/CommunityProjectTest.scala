@@ -33,7 +33,7 @@ abstract class CommunityProjectTest(project: CommunityProject) {
       assertEquals(exit, 0)
     }
     println(project.workingDirectory)
-    exec("git", "clean", "-fd")
+    exec("git", "clean", "-xfd")
     exec("git", "checkout", "dotty")
     exec("sbt", project.sbtCommand)
     println(s"DONE!")
