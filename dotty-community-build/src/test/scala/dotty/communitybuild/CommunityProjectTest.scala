@@ -11,7 +11,8 @@ case class CommunityProject(
     sbtCommands: List[String] = List("clean", "compile")
 ) {
   def sbtCommand: String = sbtCommands.mkString("; ", " ; ", "")
-  def workingDirectory: Path = Paths.get(name)
+  def workingDirectory: Path =
+    Paths.get(sys.props("user.dir")).getParent.resolve(name)
 }
 
 abstract class CommunityProjectTest(project: CommunityProject) {
