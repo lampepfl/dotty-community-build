@@ -4,4 +4,4 @@ pipeline:
     pull: true
     commands:
       - cd dotty && sbt publishLocal
-      - sbt test
+      - sbt community/test

@@ -35,6 +35,7 @@ abstract class CommunityProjectTest(project: CommunityProject) {
     println(project.workingDirectory)
     exec("git", "clean", "-xfd")
     exec("git", "checkout", "dotty")
+    exec("git", "pull", "origin", "dotty")
     exec("sbt", project.sbtCommand)
     println(s"DONE!")
   }
