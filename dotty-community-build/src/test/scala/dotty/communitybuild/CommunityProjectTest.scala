@@ -15,11 +15,41 @@ case class CommunityProject(
     Paths.get(sys.props("user.dir")).getParent.resolve(name)
 }
 
+object DottyVersion {
+  // NOTE: the "latest" version in the maven-metadata.xxml uses a release from
+  // January because it has no PATCH version (0.1-201701XXX) while the actual latest
+  // releases have a PATCH version (0.1.1-20170NXXX). Until 0.2 is released,
+  // we hardcode this regex to match a 0.1 release with a PATCH version.
+  private val Version = """      <version>(0.1\..*)</version>""".r
+  lazy val latest = sys.env.getOrElse(
+    "DOTTY_VERSION",
+    scala.io.Source
+      .fromURL(
+        "http://repo1.maven.org/maven2/ch/epfl/lamp/dotty_2.11/maven-metadata.xml")
+      .getLines()
+      .collect { case Version(version) => version }
+      .toSeq
+      .lastOption
+      .getOrElse {
+        throw new IllegalStateException(
+          "Unable to automatically fetch latest dotty nightly release, " +
+            "please manually pass the environment variable DOTTY_VERSION.")
+      }
+  )
+}
+
 abstract class CommunityProjectTest(project: CommunityProject) {
+  def log(msg: String) = {
+    val banner = "*" * (msg.length + 5)
+    println(banner)
+    println("===> " + msg)
+    println(banner)
+  }
+  log(s"Using dotty version ${DottyVersion.latest}")
   @Test def compilesWithDotty(): Unit = {
-    println(s"Starting....")
+    log(s"Starting....")
     def exec(command: String*): Unit = {
-      println(s"Running command: ${command.mkString(" ")}")
+      log(s"Running command: ${command.mkString(" ")}")
 
       import scala.collection.JavaConverters._
       val builder = new ProcessBuilder(command.asJava)
@@ -27,18 +57,17 @@ abstract class CommunityProjectTest(project: CommunityProject) {
         .inheritIO()
       builder
         .environment()
-        .put("COMPILERVERSION", "0.1.1-SNAPSHOT")
+        .put("COMPILERVERSION", DottyVersion.latest)
 
       val process = builder.start()
       val exit = process.waitFor()
       assertEquals(exit, 0)
     }
-    println(project.workingDirectory)
     exec("git", "clean", "-xfd")
     exec("git", "checkout", "dotty")
     exec("git", "pull", "origin", "dotty")
     exec("sbt", project.sbtCommand)
-    println(s"DONE!")
+    log(s"DONE!")
   }
 }
 

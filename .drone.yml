@@ -1,6 +1,5 @@
 pipeline:
   test:
-    image: lampepfl/dotty:latest
-    pull: true
+    image: scalaplatform/scala:0.6
     commands:
-      - ./run.sh
+      - cd dotty-community-build && /usr/bin/sbt test
