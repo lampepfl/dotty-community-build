@@ -10,7 +10,6 @@ case class CommunityProject(
     name: String,
     sbtCommands: List[String] = List("clean", "compile")
 ) {
-  def sbtCommand: String = sbtCommands.mkString("; ", " ; ", "")
   def workingDirectory: Path =
     Paths.get(sys.props("user.dir")).getParent.resolve(name)
 }
@@ -48,7 +47,8 @@ abstract class CommunityProjectTest(project: CommunityProject) {
   log(s"Using dotty version ${DottyVersion.latest}")
   @Test def compilesWithDotty(): Unit = {
     log(s"Starting....")
-    def exec(command: String*): Unit = {
+    def exec(binary: String, arguments: String*): Unit = {
+      val command = binary +: arguments
       log(s"Running command: ${command.mkString(" ")}")
 
       import scala.collection.JavaConverters._
@@ -66,7 +66,7 @@ abstract class CommunityProjectTest(project: CommunityProject) {
     exec("git", "clean", "-xfd")
     exec("git", "checkout", "dotty")
     exec("git", "pull", "origin", "dotty")
-    exec("sbt", project.sbtCommand)
+    exec("sbt", project.sbtCommands: _*)
     log(s"DONE!")
   }
 }
