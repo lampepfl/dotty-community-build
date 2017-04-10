@@ -1,0 +1,4 @@
+[submodule "scalatest"]
+	path = scalatest
+	branch = dotty
+	url = https://github.com/dotty-staging/scalatest.git
