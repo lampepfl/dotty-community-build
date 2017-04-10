@@ -2,3 +2,7 @@
 	path = scalatest
 	branch = dotty
 	url = https://github.com/dotty-staging/scalatest.git
+[submodule "squants"]
+	path = squants
+	branch = dotty
+	url = https://github.com/dotty-staging/squants.git
