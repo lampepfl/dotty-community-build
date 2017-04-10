@@ -19,3 +19,4 @@ env:
   matrix:
     - PROJECT=Scalatest
     - PROJECT=Squants
+    - PROJECT=Algebra

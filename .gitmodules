@@ -6,3 +6,6 @@
 	path = squants
 	branch = dotty
 	url = https://github.com/dotty-staging/squants.git
+[submodule "algebra"]
+	path = algebra
+	url = https://github.com/dotty-staging/algebra.git
