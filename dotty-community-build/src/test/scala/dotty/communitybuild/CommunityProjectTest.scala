@@ -15,25 +15,33 @@ case class CommunityProject(
 }
 
 object DottyVersion {
-  // NOTE: the "latest" version in the maven-metadata.xxml uses a release from
-  // January because it has no PATCH version (0.1-201701XXX) while the actual latest
-  // releases have a PATCH version (0.1.1-20170NXXX). Until 0.2 is released,
-  // we hardcode this regex to match a 0.1 release with a PATCH version.
-  private val Version = """      <version>(0.1\..*)</version>""".r
-  lazy val latest = sys.env.getOrElse(
-    "DOTTY_VERSION",
+  // NOTE: the "latest" version in the maven-metadata.xml points to a release from
+  // January because that version has no PATCH (0.1-201701XXX) while the actual latest
+  // releases have a PATCH version (0.1.1-2017XXXX). Until 0.2 is released,
+  // we sort by the date (2017XXXX) part and take the latest one by lexicographical order.
+  case class NightlyVersion(monthDay: String, version: String)
+  private val MonthDay = """.*2017(\d\d\d\d).*""".r
+  private val Version = """      <version>(.*)</version>""".r
+  def latestDottyNightlyRelease: Option[String] =
     scala.io.Source
       .fromURL(
         "http://repo1.maven.org/maven2/ch/epfl/lamp/dotty_2.11/maven-metadata.xml")
       .getLines()
-      .collect { case Version(version) => version }
-      .toSeq
-      .lastOption
-      .getOrElse {
-        throw new IllegalStateException(
-          "Unable to automatically fetch latest dotty nightly release, " +
-            "please manually pass the environment variable DOTTY_VERSION.")
+      .collect {
+        case Version(version @ MonthDay(monthDay)) =>
+          NightlyVersion(monthDay, version)
       }
+      .toSeq
+      .sortBy(_.monthDay)
+      .lastOption
+      .map(_.version)
+  lazy val latest: String = sys.env.getOrElse(
+    "DOTTY_VERSION",
+    latestDottyNightlyRelease.getOrElse {
+      throw new IllegalStateException(
+        "Unable to automatically fetch latest dotty nightly release, " +
+          "please manually pass the environment variable DOTTY_VERSION.")
+    }
   )
 }
 
