@@ -1,4 +1,6 @@
 # Dotty Community Build
+[![Community Build Status](https://travis-ci.org/lampepfl/dotty-community-build.svg?branch=master)](https://travis-ci.org/lampepfl/dotty-community-build)
+
 
 This repository contains tests to build a corpus of Scala open sources projects
 against the latest changes in Dotty.
