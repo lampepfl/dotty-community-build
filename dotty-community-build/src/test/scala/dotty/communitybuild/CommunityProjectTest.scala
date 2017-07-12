@@ -42,7 +42,7 @@ abstract class CommunityProjectTest(project: CommunityProject) {
   }
   log(s"Using dotty version ${BuildInfo.dottyVersion}")
   assertVersionIsUpToDate(BuildInfo.dottyVersion)
-  private val SbtCommand = ".*sbt ([^ ]+) .*".r
+  private val SbtCommand = ".*sbt ([^ ]+).*".r
   @Test def compilesWithDotty(): Unit = {
     log(s"Starting....")
     // By convention, run the first command passed to sbt in .travis.yml
