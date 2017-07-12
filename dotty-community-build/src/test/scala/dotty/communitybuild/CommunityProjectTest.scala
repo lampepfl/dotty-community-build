@@ -4,6 +4,8 @@ import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
 
+import java.text.SimpleDateFormat
+import java.util.Date
 import org.junit.Assert._
 import org.junit.Test
 
@@ -13,6 +15,25 @@ case class CommunityProject(name: String) {
 }
 
 abstract class CommunityProjectTest(project: CommunityProject) {
+
+  private val NightlyDate = ".*bin-(\\d+)-.*".r
+  private val dateFormat = new SimpleDateFormat("yyyyMMdd")
+  private def getDate(nightlyVersion: String): Date = {
+    nightlyVersion match {
+      case NightlyDate(date) => dateFormat.parse(date)
+      case els =>
+        sys.error(
+          s"Unknown date format $els. Expected ${dateFormat.toPattern}")
+    }
+  }
+  private val day = 60L * 60 * 24 * 1000
+  def assertVersionIsUpToDate(nightlyVersion: String): Unit = {
+    val nightly = getDate(nightlyVersion)
+    val now = new Date()
+    val diff = now.getTime - nightly.getTime
+    assert(diff < (day * 3), s"Outdated version $nightlyVersion")
+  }
+
   private def log(msg: String) = {
     val banner = "*" * (msg.length + 5)
     println(banner)
@@ -20,6 +41,7 @@ abstract class CommunityProjectTest(project: CommunityProject) {
     println(banner)
   }
   log(s"Using dotty version ${BuildInfo.dottyVersion}")
+  assertVersionIsUpToDate(BuildInfo.dottyVersion)
   private val SbtCommand = ".*sbt ([^ ]+) .*".r
   @Test def compilesWithDotty(): Unit = {
     log(s"Starting....")
