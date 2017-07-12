@@ -83,3 +83,5 @@ class Scalatest extends CommunityProjectTest(CommunityProject("scalatest"))
 class Squants extends CommunityProjectTest(CommunityProject("squants"))
 
 class Algebra extends CommunityProjectTest(CommunityProject("algebra"))
+
+class ScalaPB extends CommunityProjectTest(CommunityProject("ScalaPB"))
