@@ -20,3 +20,4 @@ env:
     - PROJECT=Scalatest
     - PROJECT=Squants
     - PROJECT=Algebra
+    - PROJECT=ScalaPB
