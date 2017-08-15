@@ -18,6 +18,7 @@ abstract class CommunityProjectTest(project: CommunityProject) {
 
   private val NightlyDate = ".*bin-(\\d+)-.*".r
   private val dateFormat = new SimpleDateFormat("yyyyMMdd")
+  private val iso8601 = new SimpleDateFormat("yyyy-MM-dd")
   private def getDate(nightlyVersion: String): Date = {
     nightlyVersion match {
       case NightlyDate(date) => dateFormat.parse(date)
@@ -27,11 +28,25 @@ abstract class CommunityProjectTest(project: CommunityProject) {
     }
   }
   private val day = 60L * 60 * 24 * 1000
+  private val days = 3 * day
+
+  // query latest dotty commits from GitHub api.
+  private def commitsInLastDays: String = {
+    val daysAgo = new Date(new Date().getTime - days)
+    val since = iso8601.format(daysAgo)
+    scala.io.Source.fromURL(
+      s"https://api.github.com/repos/lampepfl/dotty/commits?since=$since"
+    ).mkString
+  }
+
   def assertVersionIsUpToDate(nightlyVersion: String): Unit = {
     val nightly = getDate(nightlyVersion)
     val now = new Date()
     val diff = now.getTime - nightly.getTime
-    assert(diff < (day * 3), s"Outdated version $nightlyVersion")
+    assert(
+      diff < days || commitsInLastDays == "[]" ,
+      s"Outdated version $nightlyVersion"
+    )
   }
 
   private def log(msg: String) = {
