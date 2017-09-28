@@ -21,3 +21,4 @@ env:
     - PROJECT=Squants
     - PROJECT=Algebra
     - PROJECT=ScalaPB
+    - PROJECT=Scopt
