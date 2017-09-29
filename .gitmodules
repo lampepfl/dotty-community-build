@@ -14,3 +14,7 @@
 	path = ScalaPB
 	branch = dotty
 	url = https://github.com/dotty-staging/ScalaPB.git
+[submodule "scopt"]
+	path = scopt
+	branch = dotty
+	url = https://github.com/dotty-staging/scopt.git
