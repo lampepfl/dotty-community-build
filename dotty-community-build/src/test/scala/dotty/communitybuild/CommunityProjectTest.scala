@@ -86,8 +86,6 @@ abstract class CommunityProjectTest(project: CommunityProject) {
       assertEquals(exit, 0)
     }
     exec("git", "clean", "-xfd")
-    exec("git", "checkout", "dotty")
-    exec("git", "pull", "origin", "dotty")
     exec("sbt", s"++${BuildInfo.dottyVersion}", sbtCommand)
     log(s"DONE!")
   }
