@@ -17,7 +17,7 @@ before_cache:
   - find $HOME/.ivy2/cache -name "ivydata-*.properties" -type f -delete
 env:
   matrix:
-    #- PROJECT=Scalatest
+    - PROJECT=Scalatest
     - PROJECT=Squants
     - PROJECT=Algebra
     - PROJECT=ScalaPB
