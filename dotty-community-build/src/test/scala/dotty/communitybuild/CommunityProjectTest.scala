@@ -56,7 +56,7 @@ abstract class CommunityProjectTest(project: CommunityProject) {
     println(banner)
   }
   log(s"Using dotty version ${BuildInfo.dottyVersion}")
-  assertVersionIsUpToDate(BuildInfo.dottyVersion)
+  // assertVersionIsUpToDate(BuildInfo.dottyVersion)
   private val SbtCommand = ".*sbt ([^ ]+).*".r
   @Test def compilesWithDotty(): Unit = {
     log(s"Starting....")
