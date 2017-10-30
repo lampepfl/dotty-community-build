@@ -4,26 +4,26 @@
 This repository contains tests to build a corpus of Scala open sources projects
 against the latest changes in Dotty.
 
-To run the community build on a local machine, clone the repo and execute `./run.sh`.
+To run the community build on a local machine, clone the repo and execute `sbt test`.
 
 The tests will by default run against the latest NIGHTLY build of dotty.
-To customize the dotty version, set the environment variable `export DOTTY_VERSION=X.Y.Z`.
+You may customize the dotty version in `build.sbt`. You might need nigh to reload `sbt` for the
+change to take effect.
 
-## Adding a new project
-To add a new project `ORG/REPO` to the community build you can follow this steps:
-1. Fork `ORG/REPO` to `dotty-staging/REPO`
-2. Clone `dotty-staging/REPO`, create a branch `dotty` and push the `dotty` branch 
-3. Open `dotty-staging/REPO` on Github. Go to `Settings > Branches`. Change the default branch to `dotty`
-4. Go to https://travis-ci.org/profile/dotty-staging and enable that repo. You may need to click on `Sync account` and
-   reload to see the newly forked repo
-5. Fork the `dotty-staging/REPO` to your personal github account
-6. Edit the build to use `sbt-dotty` and fix all the compilation errors. Example PRs:
-    - https://github.com/dotty-staging/scalacheck/pull/1
-    - https://github.com/dotty-staging/squants/pull/1
-    - https://github.com/dotty-staging/algebra/pull/1
-7. Once the project complies with dotty, copy the `.travis.yml` file from
-   [here](https://github.com/dotty-staging/squants/blob/37ea54761b5e80ddc0dfc273fc4bbad430f201f5/.travis.yml#L3)
-   and adjust the compile task. It's OK to only compile the project to begin with, not run any tests.
-8. Open PR to merge your changes into the `dotty` branch of hte `dotty-staging/REPO`
-9. Once PR is merged into `dotty-staging/REPO`, open a PR to `lampepfl/dotty-community-build` adding the new
-   `dotty-staging/REPO` to the community build. Example PR: https://github.com/lampepfl/dotty-community-build/pull/3
+## Adding your project
+To add your project to the community build you can follow these steps:
+1. Create a new branch in your project. Name it `dotty` (not mandatory).
+2. Edit the build to use the `sbt-dotty` plugin. Examples:
+    - https://github.com/dotty-staging/better-files/commit/6ed1b74d338908f87dab251d11812868a5fd7e4b
+    - https://github.com/dotty-staging/squants/commit/731c8874295a6aca609113ffb07e50cb12b58381
+    - https://github.com/dotty-staging/scalatest/commit/90969923f21841e0f57f00bcf81481e14c8685eb
+3. Make the project compile with Dotty. Please [open an issue](https://github.com/lampepfl/dotty/issues/new)
+on Github if you think your project doesn't compile because of a bug in Dotty. Example migration
+steps to make a project compile with Dotty: https://github.com/dotty-staging/scalatest/commits/dotty
+4. Once your project compiles with Dotty. Open a PR against this repo that:
+    - adds a test for your project in `src/test/dotty/communitybuild/CommunityBuildTest.scala`.
+  A test requires:
+        - Your project git url
+        - The name of the branch to build. The default is `dotty`
+        - The command `sbt` needs to run in order to build the project
+    - adds an entry for your project in `.travis.yml` that matches the name of the test
