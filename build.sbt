@@ -3,7 +3,7 @@ inThisBuild(List(
   scalaVersion := "2.12.4"
 ))
 
-val dottyVersion = dottyLatestNightlyBuild.get
+val dottyVersion = dottyLatestNightlyBuild().get
 
 lazy val `dotty-community-build` = project
   .in(file("."))
