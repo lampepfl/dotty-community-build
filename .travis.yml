@@ -24,3 +24,4 @@ env:
     - PROJECT=scalatest
     - PROJECT=scopt
     - PROJECT=squants
+    - PROJECT=collectionstrawman
