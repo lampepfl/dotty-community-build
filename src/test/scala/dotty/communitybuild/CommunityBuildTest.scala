@@ -42,4 +42,9 @@ class CommunityBuildTest extends BuildTest {
     gitUrl = "https://github.com/dotty-staging/squants",
     command = "squantsJVM/compile"
   )
+
+  @Test def collectionstrawman = project(
+    gitUrl = "https://github.com/dotty-staging/collection-strawman",
+    command = "dottyCompile"
+  )
 }
