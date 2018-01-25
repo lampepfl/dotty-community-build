@@ -47,4 +47,10 @@ class CommunityBuildTest extends BuildTest {
     gitUrl = "https://github.com/dotty-staging/collection-strawman",
     command = "dottyCompile"
   )
+
+  @Test def scalap = project(
+    gitUrl = "https://github.com/dotty-staging/scala",
+    branch  = "dotty-scalap",
+    command = "scalap/compile"
+  )
 }

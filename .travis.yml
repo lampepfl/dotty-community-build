@@ -25,3 +25,4 @@ env:
     - PROJECT=scopt
     - PROJECT=squants
     - PROJECT=collectionstrawman
+    - PROJECT=scalap
