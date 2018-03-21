@@ -2,10 +2,9 @@ lazy val dottyVersion = settingKey[String]("The version of Dotty to use.")
 
 inThisBuild(List(
   organization := "ch.epfl.lamp",
-  scalaVersion := "2.12.4"
+  scalaVersion := "2.12.4",
+  dottyVersion := sys.env.getOrElse("DOTTY_VERSION", dottyLatestNightlyBuild.get)
 ))
-
-dottyVersion := sys.env.getOrElse("DOTTY_VERSION", dottyLatestNightlyBuild.get)
 
 lazy val `dotty-community-build` = project
   .in(file("."))
