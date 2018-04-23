@@ -28,3 +28,4 @@ env:
     - PROJECT=squants
     - PROJECT=collectionstrawman
     - PROJECT=scalap
+    - PROJECT=minitest
