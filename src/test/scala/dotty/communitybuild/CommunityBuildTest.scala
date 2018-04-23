@@ -53,4 +53,9 @@ class CommunityBuildTest extends BuildTest {
     branch  = "dotty-scalap",
     command = "scalap/compile"
   )
+
+  @Test def minitest = project(
+    gitUrl = "https://github.com/dotty-staging/minitest",
+    command = "dottyCompile"
+  )
 }
