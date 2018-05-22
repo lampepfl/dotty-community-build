@@ -29,3 +29,4 @@ env:
     - PROJECT=collectionstrawman
     - PROJECT=scalap
     - PROJECT=minitest
+    - PROJECT=fastparse

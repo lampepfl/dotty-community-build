@@ -58,4 +58,9 @@ class CommunityBuildTest extends BuildTest {
     gitUrl = "https://github.com/dotty-staging/minitest",
     command = "dottyCompile"
   )
+
+  @Test def fastparse = project(
+    gitUrl = "https://github.com/dotty-staging/fastparse",
+    command = "fastparse/compile"
+  )
 }
