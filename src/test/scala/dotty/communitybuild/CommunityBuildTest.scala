@@ -56,6 +56,7 @@ class CommunityBuildTest extends BuildTest {
 
   @Test def minitest = project(
     gitUrl = "https://github.com/dotty-staging/minitest",
+    branch  = "implement-macro-with-tasty-reflect",
     command = "dottyCompile"
   )
 
