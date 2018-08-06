@@ -63,4 +63,10 @@ class CommunityBuildTest extends BuildTest {
     gitUrl = "https://github.com/dotty-staging/fastparse",
     command = "fastparse/compile"
   )
+
+  @Test def stdLib213 = project(
+    gitUrl = "https://github.com/dotty-staging/scala",
+    branch  = "dotty-library-2.13",
+    command = "library/compile"
+  )
 }

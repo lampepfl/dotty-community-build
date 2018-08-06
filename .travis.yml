@@ -30,3 +30,4 @@ env:
     - PROJECT=scalap
     - PROJECT=minitest
     - PROJECT=fastparse
+    - PROJECT=stdLib213
