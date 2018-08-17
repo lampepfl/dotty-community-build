@@ -61,6 +61,6 @@ abstract class BuildTest {
 
     // clone repository and run sbt command with the dottyVersion set in the build
     exec("git", "clone", "-b", branch, gitUrl, ".")
-    exec("sbt", s"++$dottyVersion", command)
+    exec("sbt", s"++$dottyVersion!", command)
   }
 }
