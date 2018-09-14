@@ -20,7 +20,7 @@ class CommunityBuildTest extends BuildTest {
 
   @Test def scalacheck = project(
     gitUrl = "https://github.com/dotty-staging/scalacheck",
-    command = "jvm/compile"
+    command = "jvm/test:compile"
   )
 
   @Test def ScalaPB = project(
