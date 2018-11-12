@@ -17,3 +17,4 @@ env:
     - PROJECT=minitest
     - PROJECT=fastparse
     - PROJECT=stdLib213
+    - PROJECT=pdbp

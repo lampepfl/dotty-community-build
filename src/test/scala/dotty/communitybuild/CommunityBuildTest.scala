@@ -69,4 +69,10 @@ class CommunityBuildTest extends BuildTest {
     branch  = "dotty-library-2.13",
     command = "library/compile"
   )
+
+  @Test def pdbp = project(
+    gitUrl = "https://github.com/dotty-staging/pdbp",
+    branch = "master",
+    command = "compile"
+  )
 }
