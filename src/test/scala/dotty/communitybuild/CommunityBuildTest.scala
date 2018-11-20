@@ -72,7 +72,6 @@ class CommunityBuildTest extends BuildTest {
 
   @Test def pdbp = project(
     gitUrl = "https://github.com/dotty-staging/pdbp",
-    branch = "master",
     command = "compile"
   )
 }
