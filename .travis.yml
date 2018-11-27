@@ -18,3 +18,4 @@ env:
     - PROJECT=fastparse
     - PROJECT=stdLib213
     - PROJECT=pdbp
+    - PROJECT=sourcecode

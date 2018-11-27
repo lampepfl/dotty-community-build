@@ -74,4 +74,9 @@ class CommunityBuildTest extends BuildTest {
     gitUrl = "https://github.com/dotty-staging/pdbp",
     command = "compile"
   )
+
+  @Test def sourcecode = project(
+    gitUrl = "https://github.com/lihaoyi/sourcecode",
+    command = "sourcecodeJVM/test"
+  )
 }
