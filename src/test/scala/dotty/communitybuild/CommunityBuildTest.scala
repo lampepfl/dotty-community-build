@@ -80,3 +80,4 @@ class CommunityBuildTest extends BuildTest {
     command = "sourcecodeJVM/test"
   )
 }
+
